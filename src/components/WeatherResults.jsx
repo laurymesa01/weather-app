@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import DailyForecast from './DailyForecast'
+import HourlyForecast from './HourlyForecast'
 
 const WeatherResults = () => {
   return (
@@ -38,6 +39,9 @@ const WeatherResults = () => {
                 <DailyForecast />
             </div>
 
+        </section>
+        <section>
+            <HourlyForecast />
         </section>
     </>
   )
