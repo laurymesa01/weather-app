@@ -4,7 +4,7 @@
 
 @theme {
     --color-neutral-900  : hsl(243, 96%, 9%);
-    --color-neutral-800: hsl(243, 27%, 20%)
+    --color-neutral-800: hsl(243, 27%, 20%);
     --color-neutral-700: hsl(243, 23%, 24%);
     --color-neutral-600: hsl(243, 23%, 30%);
     --color-neutral-300: hsl(240, 6%, 70%);
@@ -53,10 +53,10 @@
     }
 
     .text-preset-7{
-        @apply text-neutral-900 text-base font-medium leading-[120%];
+        @apply text-base font-medium leading-[120%];
     }
 
-    .text-preset-7{
+    .text-preset-8{
         @apply text-neutral-900 text-sm font-medium leading-[120%];
     }
 }
