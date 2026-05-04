@@ -29,7 +29,7 @@
     }
 
     .text-preset-2{
-        @apply text-neutral-900 font-bricolage text-[52px] leading-[120%];
+        @apply font-bricolage text-[52px] leading-[120%];
     }
 
     .text-preset-3{
