@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -12,4 +14,13 @@
     --color-blue-500: hsl(233, 67%, 56%);
     --color-blue-700: hsl(248, 70%, 36%);
 
+    --font-sans: "DM Sans", sans-serif;
+    --font-bricolage: "Bricolage Grotesque", sans-serif;
+
+}
+
+@layer base {
+    body{
+        @apply font-sans;
+    }
 }
