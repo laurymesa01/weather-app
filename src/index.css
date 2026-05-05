@@ -45,7 +45,7 @@
     }
 
     .text-preset-5-medium{
-        @apply text-neutral-900 text-xl font-medium leading-[120%];
+        @apply  text-xl font-medium leading-[120%];
     }
 
     .text-preset-6{
@@ -58,5 +58,13 @@
 
     .text-preset-8{
         @apply text-neutral-900 text-sm font-medium leading-[120%];
+    }
+
+    .search-input{
+        @apply px-5 py-3 w-full bg-neutral-800 flex items-center gap-2 rounded-xl text-neutral-0  lg:w-[40%] placeholder:text-neutral-200 hover:bg-neutral-700 focus-within:border-2 focus-within:border-neutral-0 focus-within:ring-2 focus-within:ring-neutral-900 focus-within:ring-inset;
+    }
+
+    .search-button{
+        @apply bg-blue-500 text-neutral-0 cursor-pointer rounded-xl py-3 px-5 w-full md:flex-0 hover:bg-blue-700 focus:bg-blue-500 focus:border-2 focus:border-blue-500 focus:ring-2 focus:ring-neutral-900 focus:ring-inset;
     }
 }
