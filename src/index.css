@@ -41,7 +41,7 @@
     }
 
     .text-preset-5{
-        @apply text-neutral-900 text-xl font-semibold leading-[120%];
+        @apply  text-xl font-semibold leading-[120%];
     }
 
     .text-preset-5-medium{
