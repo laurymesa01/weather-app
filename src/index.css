@@ -57,7 +57,7 @@
     }
 
     .text-preset-8{
-        @apply text-neutral-900 text-sm font-medium leading-[120%];
+        @apply  text-sm font-medium leading-[120%];
     }
 
     .search-input{
