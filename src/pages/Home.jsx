@@ -2,6 +2,7 @@
 import React from 'react'
 import  Header  from "../components/Header";
 import Search from '../components/Search';
+import WeatherResults from '../components/WeatherResults';
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
         <section className='mt-12'>
           <h1 className='text-preset-2 text-neutral-0 text-center'>How’s the sky looking today?</h1>
           <Search />
+          <WeatherResults />
         </section>
     </main>
 

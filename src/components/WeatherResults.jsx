@@ -5,45 +5,45 @@ import HourlyForecast from './HourlyForecast'
 
 const WeatherResults = () => {
   return (
-    <>
-        <section>
-            <div>
+    <section className='flex flex-col  gap-4 p-4 xl:flex-row '> 
+        <section className='flex flex-col gap-8 xl:w-2/3'>
+            <div className='p-4 flex flex-col justify-center items-center gap-2 md:flex-row md:justify-between md:items-center'>
                 <div>
-                    <p>Berlin, Germany</p>
-                    <p>Tuesday, Aug 5, 2025</p>
+                    <p className='text-preset-4 text-neutral-0'>Berlin, Germany</p>
+                    <p className='text-preset-6 text-neutral-0 opacity-80'>Tuesday, Aug 5, 2025</p>
                 </div>
                 <div>
-                    <p>20</p>
+                    <p className='text-preset-1 text-neutral-0'>20</p>
+                </div>
+            </div>
+            <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+                <div className='bg-neutral-800 rounded-xl p-4 border border-neutral-600'>
+                    <p className='text-preset-6 text-neutral-200'>Feels like</p>
+                    <p className='text-preset-3 text-neutral-0 mt-3'>18</p>
+                </div>
+                <div className='bg-neutral-800 rounded-xl p-4 border border-neutral-600'>
+                    <p className='text-preset-6 text-neutral-200'>Humidity</p>
+                    <p className='text-preset-3 text-neutral-0 mt-3'>46%</p>
+                </div>
+                <div className='bg-neutral-800 rounded-xl p-4 border border-neutral-600'>
+                    <p className='text-preset-6 text-neutral-200'>Wind</p>
+                    <p className='text-preset-3 text-neutral-0 mt-3'>14 km/h</p>
+                </div>
+                <div className='bg-neutral-800 rounded-xl p-4 border border-neutral-600'>
+                    <p className='text-preset-6 text-neutral-200'>Precipitation</p>
+                    <p className='text-preset-3 text-neutral-0 mt-3'>0 mm</p>
                 </div>
             </div>
             <div>
-                <div>
-                    <p>Feels like</p>
-                    <p>18</p>
-                </div>
-                <div>
-                    <p>Humidity</p>
-                    <p>46%</p>
-                </div>
-                <div>
-                    <p>Wind</p>
-                    <p>14 km/h</p>
-                </div>
-                <div>
-                    <p>Precipitation</p>
-                    <p>0 mm</p>
-                </div>
-            </div>
-            <div>
-                <p>Daily forecast</p>
+                <p className='text-preset-5 text-neutral-0'>Daily forecast</p>
                 <DailyForecast />
             </div>
 
         </section>
-        <section>
+        <section className='xl:flex-1'>
             <HourlyForecast />
         </section>
-    </>
+    </section>
   )
 }
 

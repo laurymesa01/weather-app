@@ -25,7 +25,7 @@
     }
 
     .text-preset-1{
-        @apply text-neutral-900 text-8xl font-semibold italic tracking-[-2px];
+        @apply text-8xl font-semibold italic tracking-[-2px];
     }
 
     .text-preset-2{
@@ -33,11 +33,11 @@
     }
 
     .text-preset-3{
-        @apply text-neutral-900 text-[32px] font-light;
+        @apply  text-[32px] font-light;
     }
 
     .text-preset-4{
-        @apply text-neutral-900 text-[28px] font-bold leading-[120%];
+        @apply  text-[28px] font-bold leading-[120%];
     }
 
     .text-preset-5{
@@ -49,7 +49,7 @@
     }
 
     .text-preset-6{
-        @apply text-neutral-900 text-lg font-medium leading-[120%];
+        @apply  text-lg font-medium leading-[120%];
     }
 
     .text-preset-7{
