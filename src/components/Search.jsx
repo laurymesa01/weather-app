@@ -6,7 +6,7 @@ const Search = () => {
 
   const [query, setQuery] = useState('');
   const [city, setCity] = useState('');
-
+  const [weather, setWeather] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,16 +14,17 @@ const Search = () => {
     setQuery(city);
   }
 
-
   useEffect(() => {
     if (!query) return;
 
     async function loadWeather() {
       const data = await fetchWeather(query);
-      console.log('DATA',data);
-      
+      console.log(data)
+      setWeather(data);
+
     }
     loadWeather();
+    
   }, [query]);
 
   return (
