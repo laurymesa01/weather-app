@@ -1,31 +1,20 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useState, useEffect } from 'react'
-import {fetchWeather} from '../services/fetchWeather';
+import React, { useRef, useState, useContext } from 'react'
+
+import { WeatherContext } from "../context/WeatherContext";
+
 
 const Search = () => {
 
-  const [query, setQuery] = useState('');
   const [city, setCity] = useState('');
-  const [weather, setWeather] = useState(null);
+  const { setQuery } = useContext(WeatherContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!city.trim()) return;
     setQuery(city);
+    setCity('');
   }
-
-  useEffect(() => {
-    if (!query) return;
-
-    async function loadWeather() {
-      const data = await fetchWeather(query);
-      console.log(data)
-      setWeather(data);
-
-    }
-    loadWeather();
-    
-  }, [query]);
 
   return (
     <form action="" className='mt-12 flex flex-col items-center gap-2 md:flex-row lg:justify-center' onSubmit={handleSubmit}>
@@ -38,8 +27,8 @@ const Search = () => {
                 type="search" 
                 placeholder='Search for a place...' 
                 className='text-preset-5-medium outline-none focus:outline-none w-full ' 
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}/>
+                value={city}
+                onChange={(e) => setCity(e.target.value)}/>
       </div>
       <button type='submit' className='search-button' onClick={handleSubmit}>Search</button>
     </form>

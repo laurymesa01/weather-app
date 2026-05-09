@@ -1,9 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useContext } from 'react'
 import DailyForecast from './DailyForecast'
 import HourlyForecast from './HourlyForecast'
 
+import { WeatherContext } from "../context/WeatherContext";
+
+
 const WeatherResults = () => {
+
+    const {weather} = useContext(WeatherContext);
+    console.log(weather)
+    
   return (
     <section className='flex flex-col  gap-4 py-4 xl:flex-row '> 
         <section className='flex flex-col gap-8 xl:w-2/3'>
