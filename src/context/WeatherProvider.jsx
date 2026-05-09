@@ -7,7 +7,19 @@ import {fetchWeather} from '../services/fetchWeather';
 export function WeatherProvider({ children }) {
 
   const [query, setQuery] = useState("");
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState({
+    city: "Berlin",
+    country: "Germany",
+    current: {
+      temperature_2m: 20,
+      apparent_temperature: 18,
+      relative_humidity_2m: 46,
+      wind_speed_10m: 14,
+      time: '',
+      precipitation: 0,
+    }
+
+  });
 
   useEffect(() => {
     if (!query) return;
