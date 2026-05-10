@@ -10,6 +10,7 @@ import { formatDate } from "../utils/format";
 const WeatherResults = () => {
 
     const {weather} = useContext(WeatherContext);
+    
 
   return (
     <section className='flex flex-col  gap-4 py-4 xl:flex-row '> 

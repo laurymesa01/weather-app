@@ -17,7 +17,12 @@ export function WeatherProvider({ children }) {
       wind_speed_10m: 14,
       time: '',
       precipitation: 0,
-    }
+    },
+    daily: {
+      weather_code: [],
+      temperature_2m_max: [],
+      temperature_2m_min: []
+    },
 
   });
 

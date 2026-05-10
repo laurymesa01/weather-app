@@ -16,13 +16,21 @@ export async function fetchWeather(city) {
     "apparent_temperature",
     "wind_speed_10m",
     "precipitation",
-    "weather_code"
+    "weather_code",
+  ];
+
+  const daily = [
+    "weather_code",
+    "temperature_2m_max",
+    "temperature_2m_min"
   ];
 
   const params = new URLSearchParams({
     latitude,
     longitude,
     current: current.join(","),
+    daily: daily.join(","),
+    timezone: 'auto'
   });
 
 
@@ -35,6 +43,7 @@ export async function fetchWeather(city) {
     country,
     current: weatherData.current,
     currentUnits: weatherData.current_units,
+    daily: weatherData.daily,
 
   };
 }
