@@ -25,11 +25,17 @@ export async function fetchWeather(city) {
     "temperature_2m_min"
   ];
 
+  const hourly = [
+    "weather_code",
+    "temperature_2m"
+  ];
+
   const params = new URLSearchParams({
     latitude,
     longitude,
     current: current.join(","),
     daily: daily.join(","),
+    hourly: hourly.join(","),
     timezone: 'auto'
   });
 
@@ -44,6 +50,6 @@ export async function fetchWeather(city) {
     current: weatherData.current,
     currentUnits: weatherData.current_units,
     daily: weatherData.daily,
-
+    hourly: weatherData.hourly,
   };
 }

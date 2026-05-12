@@ -1,7 +1,33 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
+import React, { useContext } from 'react'
+
+import WeatherIcon from './WeatherIcon';
+
+import { WeatherContext } from "../context/WeatherContext";
 
 const HourlyForecast = () => {
+
+    const {weather} = useContext(WeatherContext);
+
+    if (!weather.hourly || !weather.hourly.time) {
+        return <p>Loading forecast...</p>;
+    }
+
+    const hourlyForecast = weather.hourly.time.map((time, index) => ({
+        time: new Date(time).toLocaleTimeString("en-US", { hour: "numeric" }),
+        temperature: weather.hourly.temperature_2m[index],
+        weatherCode: weather.hourly.weather_code[index],
+        fullDate: time
+      })).filter(hour => {
+        const dayName = new Date(hour.fullDate).toLocaleDateString("en-US", {
+          weekday: "long"
+        });
+        return dayName === "Tuesday";
+    });
+
+      console.log('HOURLY',hourlyForecast)
+      
+    
   return (
     <section className='p-4 bg-neutral-800 rounded-xl '>
         <div className='flex justify-between items-center'>
@@ -16,38 +42,15 @@ const HourlyForecast = () => {
             </div>
         </div>
         <ul className='flex flex-col gap-4 mt-4'>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>3 PM</p>
-                <p className='text-preset-7 text-neutral-0'>20</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>4 PM</p>
-                <p className='text-preset-7 text-neutral-0'>20</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>5 PM</p>
-                <p className='text-preset-7 text-neutral-0'>20</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>6 PM</p>
-                <p className='text-preset-7 text-neutral-0'>19</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>7 PM</p>
-                <p className='text-preset-7 text-neutral-0'>18</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>8 PM</p>
-                <p className='text-preset-7 text-neutral-0'>18</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>9 PM</p>
-                <p className='text-preset-7 text-neutral-0'>17</p>
-            </li>
-            <li className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
-                <p className='text-preset-5-medium text-neutral-0'>10 PM</p>
-                <p className='text-preset-7 text-neutral-0'>17</p>
-            </li>
+            {hourlyForecast.map((hour, index) => (
+                <li key={index} className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
+                    <div className='flex flex-row items-center gap-4'>
+                        <WeatherIcon code={hour.weatherCode} />
+                        <p className='text-preset-5-medium text-neutral-0'>{hour.time}</p>
+                    </div>
+                    <p className='text-preset-7 text-neutral-0'>{hour.temperature} °</p>
+                </li>
+            ))}
         </ul>
     </section>
   )
