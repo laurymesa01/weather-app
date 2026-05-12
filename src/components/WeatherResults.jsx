@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from 'react'
+
 import DailyForecast from './DailyForecast'
 import HourlyForecast from './HourlyForecast'
+import WeatherIcon from './WeatherIcon'
 
 import { WeatherContext } from "../context/WeatherContext";
 import { formatDate } from "../utils/format";
@@ -11,6 +13,7 @@ const WeatherResults = () => {
 
     const {weather} = useContext(WeatherContext);
     
+    
   return (
     <section className='flex flex-col  gap-4 py-4 xl:flex-row '> 
         <section className='flex flex-col gap-8 xl:w-2/3'>
@@ -19,7 +22,8 @@ const WeatherResults = () => {
                     <p className='text-preset-4 text-neutral-0'>{weather.city}, {weather.country}</p>
                     <p className='text-preset-6 text-neutral-0 opacity-80'>{formatDate(weather.current.time)}</p>
                 </div>
-                <div>
+                <div className='flex flex-row items-center gap-4'>
+                    <WeatherIcon code={weather.current.weather_code} />
                     <p className='text-preset-1 text-neutral-0'>{weather.current.temperature_2m}°</p>
                 </div>
             </div>
