@@ -10,11 +10,21 @@ import { WeatherContext } from "../context/WeatherContext";
 const HourlyForecast = () => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+
+    const [selectedDay, setSelectedDay] = useState(
+        new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+    }));
+
     const {weather} = useContext(WeatherContext);
 
     if (!weather.hourly || !weather.hourly.time) {
         return <p>Loading forecast...</p>;
     }
+
+    const now = new Date();
+    const today = now.toLocaleDateString("en-US", { weekday: "long" });
 
     const hourlyForecast = weather.hourly.time.map((time, index) => ({
         time: new Date(time).toLocaleTimeString("en-US", { hour: "numeric" }),
@@ -22,16 +32,16 @@ const HourlyForecast = () => {
         weatherCode: weather.hourly.weather_code[index],
         fullDate: time
       })).filter(hour => {
-        const dayName = new Date(hour.fullDate).toLocaleDateString("en-US", {
-          weekday: "long"
-        });
-        return dayName === "Tuesday";
+        const hourDate = new Date(hour.fullDate);
+        const dayName = hourDate.toLocaleDateString("en-US", { weekday: "long" });
+        if (dayName !== selectedDay) return false;
+        if (selectedDay === today) return hourDate.getHours() >= now.getHours();
+        return true;
     });
 
     const toggleDropdown = () => {
         setIsDropdownOpen(prev => !prev);
         console.log(isDropdownOpen)
-        
     }
       
     
@@ -40,12 +50,12 @@ const HourlyForecast = () => {
         <div className='flex justify-between items-center relative'>
             <p className='text-preset-5 text-neutral-0'>Hourly Forecast</p>
             <button className='flex items-center gap-2 bg-neutral-600 p-2 rounded-md cursor-pointer' onClick={toggleDropdown}>
-                <p className='text-[16px] font-medium text-neutral-0'>Tuesday</p>
+                <p className='text-[16px] font-medium text-neutral-0'>{selectedDay}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="8" fill="none" viewBox="0 0 13 8">
                     <path fill="#fff" d="M6.309 7.484 1.105 2.316c-.175-.14-.175-.421 0-.597l.704-.668a.405.405 0 0 1 .597 0l4.219 4.148 4.184-4.148c.175-.176.457-.176.597 0l.703.668c.176.176.176.457 0 .597L6.906 7.484a.405.405 0 0 1-.597 0Z"/>
                 </svg>
             </button>
-                {isDropdownOpen && <DaysDropdown />}
+                {isDropdownOpen && <DaysDropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} setIsDropdownOpen={setIsDropdownOpen}/>}
         </div>
         <ul className='flex flex-col gap-4 mt-4'>
             {hourlyForecast.map((hour, index) => (
