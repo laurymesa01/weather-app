@@ -16,7 +16,7 @@ const DailyForecast = () => {
     }
     
     const forecast = weather.daily.time.map((day, index) => ({
-        date: new Date(day).toLocaleDateString("en-US", { weekday: "long" }),
+        date: new Date(day).toLocaleDateString("en-US", { weekday: "short" }),
         maxTemp: weather.daily.temperature_2m_max[index],
         minTemp: weather.daily.temperature_2m_min[index],
         weatherCode: weather.daily.weather_code[index],
