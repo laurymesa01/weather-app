@@ -29,8 +29,8 @@ const DailyForecast = () => {
                 <p className='text-preset-6 text-neutral-0'>{day.date}</p>
                 <WeatherIcon code={day.weatherCode} className='w-full mt-4 flex justify-center'/>
                 <div className='flex justify-between items-center mt-4'>
-                    <p className='text-preset-7 text-neutral-0'>{day.maxTemp}</p>
-                    <p className='text-preset-7 text-neutral-200'>{day.minTemp}</p>
+                    <p className='text-preset-7 text-neutral-0'>{day.maxTemp}°</p>
+                    <p className='text-preset-7 text-neutral-200'>{day.minTemp}°</p>
                 </div>
             </li>
         ))}
