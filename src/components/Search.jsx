@@ -7,7 +7,11 @@ import { WeatherContext } from "../context/WeatherContext";
 const Search = () => {
 
   const [input, setInput] = useState('');
-  const { setCity } = useContext(WeatherContext);
+  const { setCity, setQuery, suggestions } = useContext(WeatherContext);
+
+  const handleKeyUp = (e) => {
+    setQuery(e.target.value);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +32,8 @@ const Search = () => {
                 placeholder='Search for a place...' 
                 className='text-preset-5-medium outline-none focus:outline-none w-full ' 
                 value={input}
-                onChange={(e) => setInput(e.target.value)}/>
+                onChange={(e) => setInput(e.target.value)}
+                onKeyUp={handleKeyUp}/>
       </div>
       <button type='submit' className='search-button' onClick={handleSubmit}>Search</button>
     </form>

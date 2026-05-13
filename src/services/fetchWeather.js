@@ -42,7 +42,6 @@ export async function fetchWeather(city, units) {
 
 
   const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
-
   const weatherData = await weatherResponse.json();
 
   return {
@@ -53,4 +52,20 @@ export async function fetchWeather(city, units) {
     daily: weatherData.daily,
     hourly: weatherData.hourly,
   };
+}
+
+export async function fetchCitysuggestions(query) {
+  const response = await fetch(`${API_URL}search?name=${query}&count=5&language=en&format=json`);
+  const data = await response.json();
+
+  if (!data.results) {
+    return [];
+  }
+
+  return data.results.map(result => ({
+    name: result.name,
+    country: result.country,
+    latitude: result.latitude,
+    longitude: result.longitude
+  }));
 }

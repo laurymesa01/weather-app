@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 
 import { WeatherContext } from "./WeatherContext";
-import {fetchWeather} from '../services/fetchWeather';
+import {fetchCitysuggestions, fetchWeather} from '../services/fetchWeather';
 
 
 export function WeatherProvider({ children }) {
 
   const [city, setCity] = useState("");
+  const [query, setQuery] = useState("");
+
   const [units, setUnits] = useState({
     temperature_unit: "celsius",
     wind_speed_unit: "kmh",
     precipitation_unit: "mm"
   });
 
+  const [suggestions, setSuggestions] = useState([]);
   const [weather, setWeather] = useState({
     city: "Berlin",
     country: "Germany",
@@ -55,8 +58,30 @@ export function WeatherProvider({ children }) {
     loadWeather();
   }, [city, units]);
 
+  useEffect(() => {
+    if (!query) return;
+
+    const delayDebounceFn = setTimeout(() => {
+      async function loadSuggestions() {
+        try {
+          if (query.trim() === '' || query.trim().length < 2) {
+            setSuggestions([]);
+            return;
+          }
+          const data = await fetchCitysuggestions(query);
+          setSuggestions(data);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      loadSuggestions();
+    }, 300)
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [query])
+
   return (
-    <WeatherContext.Provider value={{weather, setCity, setUnits, units}}>
+    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions}}>
       {children}
     </WeatherContext.Provider>
   );
