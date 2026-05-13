@@ -1,6 +1,6 @@
 const API_URL = "https://geocoding-api.open-meteo.com/v1/";
 
-export async function fetchWeather(city) {
+export async function fetchWeather(city, units) {
   const geoResponse = await fetch(`${API_URL}search?name=${city}&count=1&language=en&format=json`);
   const geoData = await geoResponse.json();
 
@@ -36,6 +36,7 @@ export async function fetchWeather(city) {
     current: current.join(","),
     daily: daily.join(","),
     hourly: hourly.join(","),
+    ...units,
     timezone: 'auto'
   });
 

@@ -38,11 +38,11 @@ const WeatherResults = () => {
                 </div>
                 <div className='bg-neutral-800 rounded-xl p-4 border border-neutral-600'>
                     <p className='text-preset-6 text-neutral-200'>Wind</p>
-                    <p className='text-preset-3 text-neutral-0 mt-3'>{weather.current.wind_speed_10m} km/h</p>
+                    <p className='text-preset-3 text-neutral-0 mt-3'>{weather.current.wind_speed_10m} {weather.currentUnits.wind_speed_10m}</p>
                 </div>
                 <div className='bg-neutral-800 rounded-xl p-4 border border-neutral-600'>
                     <p className='text-preset-6 text-neutral-200'>Precipitation</p>
-                    <p className='text-preset-3 text-neutral-0 mt-3'>{weather.current.precipitation} mm</p>
+                    <p className='text-preset-3 text-neutral-0 mt-3'>{weather.current.precipitation} {weather.currentUnits.precipitation}</p>
                 </div>
             </div>
             <div>

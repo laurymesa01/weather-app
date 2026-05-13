@@ -6,7 +6,13 @@ import {fetchWeather} from '../services/fetchWeather';
 
 export function WeatherProvider({ children }) {
 
-  const [query, setQuery] = useState("");
+  const [city, setCity] = useState("");
+  const [units, setUnits] = useState({
+    temperature_unit: "celsius",
+    wind_speed_unit: "kmh",
+    precipitation_unit: "mm"
+  });
+
   const [weather, setWeather] = useState({
     city: "Berlin",
     country: "Germany",
@@ -19,6 +25,13 @@ export function WeatherProvider({ children }) {
       precipitation: 0,
       weather_code: 0
     },
+    currentUnits: {
+      temperature_2m: "°C",
+      apparent_temperature: "°C",
+      relative_humidity_2m: "%",
+      wind_speed_10m: "km/h",
+      precipitation: "mm"
+    },
     daily: {
       weather_code: [],
       temperature_2m_max: [],
@@ -28,22 +41,22 @@ export function WeatherProvider({ children }) {
   });
 
   useEffect(() => {
-    if (!query) return;
+    if (!city) return;
 
     async function loadWeather() {
       try {
-        const data = await fetchWeather(query);
+        const data = await fetchWeather(city, units);
         setWeather(data);
-      } 
+      }
       catch (err) {
         console.error(err)
       }
     }
     loadWeather();
-  }, [query]);
+  }, [city, units]);
 
   return (
-    <WeatherContext.Provider value={{weather, setQuery}}>
+    <WeatherContext.Provider value={{weather, setCity, setUnits, units}}>
       {children}
     </WeatherContext.Provider>
   );

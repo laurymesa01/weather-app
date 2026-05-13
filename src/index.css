@@ -67,4 +67,8 @@
     .search-button{
         @apply bg-blue-500 text-neutral-0 cursor-pointer rounded-xl py-3 px-5 w-full md:flex-0 hover:bg-blue-700 focus:bg-blue-500 focus:border-2 focus:border-blue-500 focus:ring-2 focus:ring-neutral-900 focus:ring-inset;
     }
+
+    .switch-button{
+        @apply text-neutral-0 p-2 w-full text-start cursor-pointer rounded-md hover:bg-neutral-700 focus:bg-neutral-700 focus:border focus:border-neutral-0 focus:shadow-md focus:shadow-neutral-900;
+    }
 }
