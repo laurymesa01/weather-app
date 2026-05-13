@@ -41,7 +41,6 @@ const HourlyForecast = () => {
 
     const toggleDropdown = () => {
         setIsDropdownOpen(prev => !prev);
-        console.log(isDropdownOpen)
     }
       
     
@@ -61,7 +60,7 @@ const HourlyForecast = () => {
             {hourlyForecast.map((hour, index) => (
                 <li key={index} className='flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md'>
                     <div className='flex flex-row items-center gap-4'>
-                        <WeatherIcon code={hour.weatherCode} />
+                        <WeatherIcon code={hour.weatherCode} className="w-12 h-12"/>
                         <p className='text-preset-5-medium text-neutral-0'>{hour.time}</p>
                     </div>
                     <p className='text-preset-7 text-neutral-0'>{hour.temperature} °</p>

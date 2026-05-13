@@ -4,7 +4,7 @@ import React from 'react'
 const WeatherIcon = ({code, className}) => {
 
     const weatherIcons = {
-        0: "/public/icon-sunny-webp",
+        0: "/public/images/icon-sunny.webp",
     
         1: "/public/images/icon-partly-cloudy.webp",
         2: "/public/images/icon-partly-cloudy.webp",
@@ -34,13 +34,11 @@ const WeatherIcon = ({code, className}) => {
       const icon = weatherIcons[code] || "/icons/cloudy.svg";
 
   return (
-    <div className={className}>
       <img
         src={icon}
         alt="Weather condition"
-        className='w-12 h-12 '
+        className={className}
         />
-    </div>
 
     
   )

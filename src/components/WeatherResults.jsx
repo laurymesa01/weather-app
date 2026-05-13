@@ -23,7 +23,7 @@ const WeatherResults = () => {
                     <p className='text-preset-6 text-neutral-0 opacity-80'>{formatDate(weather.current.time)}</p>
                 </div>
                 <div className='flex flex-row items-center gap-4'>
-                    <WeatherIcon code={weather.current.weather_code} />
+                    <WeatherIcon code={weather.current.weather_code} className="w-18 h-18"/>
                     <p className='text-preset-1 text-neutral-0'>{weather.current.temperature_2m}°</p>
                 </div>
             </div>

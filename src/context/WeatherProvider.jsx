@@ -17,6 +17,7 @@ export function WeatherProvider({ children }) {
       wind_speed_10m: 14,
       time: '',
       precipitation: 0,
+      weather_code: 0
     },
     daily: {
       weather_code: [],

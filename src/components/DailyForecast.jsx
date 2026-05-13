@@ -27,7 +27,7 @@ const DailyForecast = () => {
         {forecast.map((day, index) => (
             <li key={index} className='bg-neutral-800 rounded-xl p-2 border border-neutral-600 text-center'>
                 <p className='text-preset-6 text-neutral-0'>{day.date}</p>
-                <WeatherIcon code={day.weatherCode} className='w-full mt-4 flex justify-center'/>
+                <WeatherIcon code={day.weatherCode} className='w-12 h-12 mt-4 mx-auto'/>
                 <div className='flex justify-between items-center mt-4'>
                     <p className='text-preset-7 text-neutral-0'>{day.maxTemp}°</p>
                     <p className='text-preset-7 text-neutral-200'>{day.minTemp}°</p>
