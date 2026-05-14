@@ -44,6 +44,14 @@ export function WeatherProvider({ children }) {
   });
 
   useEffect(() => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => setCity({ latitude: coords.latitude, longitude: coords.longitude }),
+      () => setCity("Berlin")
+    );
+  }, []);
+
+  useEffect(() => {
     if (!city) return;
 
     async function loadWeather() {
@@ -81,7 +89,7 @@ export function WeatherProvider({ children }) {
   }, [query])
 
   return (
-    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions}}>
+    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions}}>
       {children}
     </WeatherContext.Provider>
   );
