@@ -61,6 +61,7 @@ export function WeatherProvider({ children }) {
       }
       catch (err) {
         console.error(err)
+        setWeather(null);
       }
     }
     loadWeather();
