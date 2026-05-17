@@ -8,6 +8,7 @@ export function WeatherProvider({ children }) {
 
   const [city, setCity] = useState("");
   const [query, setQuery] = useState("");
+  const [isLocating, setIsLocating] = useState(true);
 
   const [units, setUnits] = useState({
     temperature_unit: "celsius",
@@ -16,38 +17,16 @@ export function WeatherProvider({ children }) {
   });
 
   const [suggestions, setSuggestions] = useState([]);
-  const [weather, setWeather] = useState({
-    city: "Berlin",
-    country: "Germany",
-    current: {
-      temperature_2m: 20,
-      apparent_temperature: 18,
-      relative_humidity_2m: 46,
-      wind_speed_10m: 14,
-      time: '',
-      precipitation: 0,
-      weather_code: 0
-    },
-    currentUnits: {
-      temperature_2m: "°C",
-      apparent_temperature: "°C",
-      relative_humidity_2m: "%",
-      wind_speed_10m: "km/h",
-      precipitation: "mm"
-    },
-    daily: {
-      weather_code: [],
-      temperature_2m_max: [],
-      temperature_2m_min: []
-    },
-
-  });
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
-      ({ coords }) => setCity({ latitude: coords.latitude, longitude: coords.longitude }),
-      () => setCity("Berlin")
+      ({ coords }) => {
+        setCity({ latitude: coords.latitude, longitude: coords.longitude })
+        setIsLocating(false)
+      },
+      () => setIsLocating(false)
     );
   }, []);
 
@@ -90,7 +69,7 @@ export function WeatherProvider({ children }) {
   }, [query])
 
   return (
-    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions}}>
+    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions, isLocating}}>
       {children}
     </WeatherContext.Provider>
   );

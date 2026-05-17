@@ -59,8 +59,6 @@ const WeatherResults = () => {
             </>
 
         )}
-         
-
     </section>
   )
 }
