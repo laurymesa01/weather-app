@@ -8,7 +8,7 @@ import CityAutocomplete from './CityAutocomplete';
 const Search = () => {
 
   const [input, setInput] = useState('');
-  const { setCity, setQuery, suggestions, setSuggestions } = useContext(WeatherContext);
+  const { setCity, setQuery, suggestions, setSuggestions, isLoadingCitiesSuggestions } = useContext(WeatherContext);
 
   const handleKeyUp = (e) => {
     setQuery(e.target.value);
@@ -43,7 +43,7 @@ const Search = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyUp={handleKeyUp}/>
-        {suggestions.length > 0 && <CityAutocomplete suggestions={suggestions} onSelect={handleSelectSuggestion}/>}
+        {(isLoadingCitiesSuggestions || suggestions.length > 0) && <CityAutocomplete suggestions={suggestions} onSelect={handleSelectSuggestion} isLoadingCitiesSuggestions={isLoadingCitiesSuggestions}/>}
       </div>
       <button type='submit' className='search-button' onClick={handleSubmit}>Search</button>
     </form>

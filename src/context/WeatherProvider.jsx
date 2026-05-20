@@ -62,7 +62,7 @@ export function WeatherProvider({ children }) {
         try {
           if (query.trim() === '' || query.trim().length < 2) {
             setSuggestions([]);
-            setIsLoadingCitiesSuggestions(true);
+            setIsLoadingCitiesSuggestions(false);
             return;
           }
           setIsLoadingCitiesSuggestions(true);
