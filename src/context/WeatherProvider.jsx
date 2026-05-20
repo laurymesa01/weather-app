@@ -80,7 +80,7 @@ export function WeatherProvider({ children }) {
   }, [query])
 
   return (
-    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions, state, isLoadingCitiesSuggestions}}>
+    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions, state, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions}}>
       {children}
     </WeatherContext.Provider>
   );
