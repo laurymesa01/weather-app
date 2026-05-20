@@ -1,18 +1,19 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react'
+import React, { useContext } from 'react'
 import Search from '../components/Search';
-// eslint-disable-next-line no-unused-vars
 import WeatherResults from '../components/WeatherResults';
 import Skeleton from '../components/Skeleton';
+import { WeatherContext } from '../context/WeatherContext';
 
 const Home = () => {
-  return (
-        <section className='mt-12'>
-          <h1 className='text-preset-2 text-neutral-0 text-center'>How’s the sky looking today?</h1>
-          <Search />
-          <Skeleton />
-        </section>
+  const { isLocating, weather } = useContext(WeatherContext);
 
+  return (
+    <section className='mt-12'>
+      <h1 className='text-preset-2 text-neutral-0 text-center'>How's the sky looking today?</h1>
+      <Search />
+      {!isLocating && weather ? <WeatherResults /> : <Skeleton />}
+    </section>
   )
 }
 
