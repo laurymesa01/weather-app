@@ -8,8 +8,7 @@ export function WeatherProvider({ children }) {
 
   const [city, setCity] = useState("");
   const [query, setQuery] = useState("");
-  const [isLocating, setIsLocating] = useState(true);
-
+  const [state, setState] = useState('idle'); // 'idle', 'loading', 'error' , 'notfound', 'success', 'locating'
   const [units, setUnits] = useState({
     temperature_unit: "celsius",
     wind_speed_unit: "kmh",
@@ -18,15 +17,17 @@ export function WeatherProvider({ children }) {
 
   const [suggestions, setSuggestions] = useState([]);
   const [weather, setWeather] = useState(null);
+  const [isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions] = useState(false); 
+
 
   useEffect(() => {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
+        setState('locating');
         setCity({ latitude: coords.latitude, longitude: coords.longitude })
-        setIsLocating(false)
       },
-      () => setIsLocating(false)
+      () => setState('idle')
     );
   }, []);
 
@@ -35,12 +36,19 @@ export function WeatherProvider({ children }) {
 
     async function loadWeather() {
       try {
+        setState('loading');
         const data = await fetchWeather(city, units);
         setWeather(data);
+        setState('success');
       }
       catch (err) {
         console.error(err)
-        setWeather({});
+        if (err.message === 'City not found') {
+          setState('notfound');
+          return;
+        } 
+        setWeather(null);
+        setState('error');
       }
     }
     loadWeather();
@@ -54,10 +62,13 @@ export function WeatherProvider({ children }) {
         try {
           if (query.trim() === '' || query.trim().length < 2) {
             setSuggestions([]);
+            setIsLoadingCitiesSuggestions(true);
             return;
           }
+          setIsLoadingCitiesSuggestions(true);
           const data = await fetchCitysuggestions(query);
           setSuggestions(data);
+          setIsLoadingCitiesSuggestions(false);
         } catch (err) {
           console.error(err);
         }
@@ -69,7 +80,7 @@ export function WeatherProvider({ children }) {
   }, [query])
 
   return (
-    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions, isLocating}}>
+    <WeatherContext.Provider value={{weather, setCity, setUnits, units, setQuery, suggestions, setSuggestions, state, isLoadingCitiesSuggestions}}>
       {children}
     </WeatherContext.Provider>
   );

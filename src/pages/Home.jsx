@@ -6,13 +6,14 @@ import Skeleton from '../components/Skeleton';
 import { WeatherContext } from '../context/WeatherContext';
 
 const Home = () => {
-  const { isLocating, weather } = useContext(WeatherContext);
+  const { state } = useContext(WeatherContext);
+  
 
   return (
     <section className='mt-12'>
       <h1 className='text-preset-2 text-neutral-0 text-center'>How's the sky looking today?</h1>
       <Search />
-      {!isLocating && weather ? <WeatherResults /> : <Skeleton />}
+      {state === 'success' ?  <WeatherResults /> : state === 'loading' ? <Skeleton /> : state === 'notfound' ? <p className='w-full text-preset-4 text-neutral-0 text-center mt-4'>No search result found!</p> : null}
     </section>
   )
 }

@@ -16,8 +16,6 @@ const WeatherResults = () => {
     
   return (
     <section className='flex flex-col  gap-4 py-4 xl:flex-row '>
-        {Object.keys(weather).length === 0 ? (<p className='w-full text-preset-4 text-neutral-0 text-center mt-4'>No search result found!</p>) : (
-            <>
                 <section className='flex flex-col gap-8 xl:w-2/3'>
                     <div className='h-70 p-4 flex flex-col justify-center items-center gap-2 md:flex-row md:justify-between md:items-center bg-[url(/images/bg-today-small.svg)] md:bg-[url(/images/bg-today-large.svg)] bg-cover bg-center rounded-xl '>
                         <div>
@@ -56,9 +54,6 @@ const WeatherResults = () => {
                 <section className='xl:flex-1'>
                     <HourlyForecast />
                 </section>
-            </>
-
-        )}
     </section>
   )
 }
