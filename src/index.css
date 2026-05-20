@@ -69,6 +69,6 @@
     }
 
     .switch-button{
-        @apply text-neutral-0 p-2 w-full text-start cursor-pointer rounded-md hover:bg-neutral-700 focus:bg-neutral-700 focus:border focus:border-neutral-0 focus:shadow-md focus:shadow-neutral-900;
+        @apply text-neutral-0 bg-neutral-800 p-2 w-full text-start cursor-pointer rounded-md hover:bg-neutral-700 focus:bg-neutral-700 focus:border focus:border-neutral-0 focus:shadow-md focus:shadow-neutral-900;
     }
 }

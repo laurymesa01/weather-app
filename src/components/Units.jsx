@@ -2,6 +2,12 @@
 import React, { useContext } from 'react'
 import { WeatherContext } from '../context/WeatherContext'
 
+const Checkmark = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" fill="none" viewBox="0 0 14 11">
+    <path fill="#fff" d="M11.895 1.047c.136-.137.355-.137.464 0l.793.766c.11.136.11.355 0 .464L4.95 10.48a.315.315 0 0 1-.465 0L.82 6.844c-.11-.137-.11-.356 0-.465l.793-.793c.11-.11.328-.11.465 0l2.625 2.652 7.192-7.191Z"/>
+  </svg>
+)
+
 const Units = ({setIsDropdownOpen}) => {
 
   const { setUnits, units } = useContext(WeatherContext);
@@ -25,18 +31,18 @@ const Units = ({setIsDropdownOpen}) => {
           <ul className='flex flex-col gap-2 mt-2'>
             <li className='border-b border-neutral-600 pb-2 flex flex-col gap-2'>
                 <p className='text-preset-8 text-neutral-300'>Temperature</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md ${!isImperial ? 'bg-neutral-700' : ''}`}>Celcius (°C)</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md ${isImperial ? 'bg-neutral-700' : ''}`}>Fahrenheit (°F)</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`}>Celcius (°C) {!isImperial && <Checkmark />}</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`}>Fahrenheit (°F) {isImperial && <Checkmark />}</p>
             </li>
             <li className='border-b border-neutral-600 pb-2 flex flex-col gap-2'>
                 <p className='text-preset-8 text-neutral-300'>Wind Speed</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md ${!isImperial ? 'bg-neutral-700' : ''}`}>km/h</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md ${isImperial ? 'bg-neutral-700' : ''}`}>mph</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`}>km/h {!isImperial && <Checkmark />}</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`}>mph {isImperial && <Checkmark />}</p>
              </li>
             <li className='border-b border-neutral-600 pb-2 flex flex-col gap-2'>
                 <p className='text-preset-8 text-neutral-300'>Precipitation</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md ${!isImperial ? 'bg-neutral-700' : ''}`}>Millimeters (mm)</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md ${isImperial ? 'bg-neutral-700' : ''}`}>Inches (in)</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`}>Millimeters (mm) {!isImperial && <Checkmark />}</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`}>Inches (in) {isImperial && <Checkmark />}</p>
             </li>
           </ul>
 
