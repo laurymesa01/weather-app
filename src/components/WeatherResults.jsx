@@ -28,22 +28,17 @@ const WeatherResults = () => {
                         </div>
                     </div>
                     <dl className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div className="bg-neutral-800 rounded-xl p-4 border border-neutral-600">
-                            <dt className="text-preset-6 text-neutral-200">Feels like</dt>
-                            <dd className="text-preset-3 text-neutral-0 mt-3">{weather.current.apparent_temperature}&#176;</dd>
-                        </div>
-                        <div className="bg-neutral-800 rounded-xl p-4 border border-neutral-600">
-                            <dt className="text-preset-6 text-neutral-200">Humidity</dt>
-                            <dd className="text-preset-3 text-neutral-0 mt-3">{weather.current.relative_humidity_2m}%</dd>
-                        </div>
-                        <div className="bg-neutral-800 rounded-xl p-4 border border-neutral-600">
-                            <dt className="text-preset-6 text-neutral-200">Wind</dt>
-                            <dd className="text-preset-3 text-neutral-0 mt-3">{weather.current.wind_speed_10m} {weather.currentUnits.wind_speed_10m}</dd>
-                        </div>
-                        <div className="bg-neutral-800 rounded-xl p-4 border border-neutral-600">
-                            <dt className="text-preset-6 text-neutral-200">Precipitation</dt>
-                            <dd className="text-preset-3 text-neutral-0 mt-3">{weather.current.precipitation} {weather.currentUnits.precipitation}</dd>
-                        </div>
+                        {[
+                            { label: "Feels like", value: `${weather.current.apparent_temperature}°` },
+                            { label: "Humidity", value: `${weather.current.relative_humidity_2m}%` },
+                            { label: "Wind", value: `${weather.current.wind_speed_10m} ${weather.currentUnits.wind_speed_10m}` },
+                            { label: "Precipitation", value: `${weather.current.precipitation} ${weather.currentUnits.precipitation}` },
+                        ].map(({ label, value }) => (
+                            <div key={label} className="bg-neutral-800 rounded-xl p-4 border border-neutral-600">
+                                <dt className="text-preset-6 text-neutral-200">{label}</dt>
+                                <dd className="text-preset-3 text-neutral-0 mt-3">{value}</dd>
+                            </div>
+                        ))}
                     </dl>
                     <div>
                         <h2 className="text-preset-5 text-neutral-0">Daily forecast</h2>

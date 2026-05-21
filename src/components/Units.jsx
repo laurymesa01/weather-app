@@ -8,37 +8,43 @@ const Checkmark = () => (
   </svg>
 )
 
+const unitSections = [
+  { label: "Temperature", metric: "Celsius (°C)", imperial: "Fahrenheit (°F)" },
+  { label: "Wind Speed", metric: "km/h", imperial: "mph" },
+  { label: "Precipitation", metric: "Millimeters (mm)", imperial: "Inches (in)" },
+]
+
 const Units = ({setIsDropdownOpen, triggerRef}) => {
 
-  const { setUnits, units } = useContext(WeatherContext);
-  const switchButtonRef = useRef(null);
+  const { setUnits, units } = useContext(WeatherContext)
+  const switchButtonRef = useRef(null)
 
-  const isImperial = units.temperature_unit === "fahrenheit";
+  const isImperial = units.temperature_unit === "fahrenheit"
 
   useEffect(() => {
-    switchButtonRef.current?.focus();
-  }, []);
+    switchButtonRef.current?.focus()
+  }, [])
 
   const handleKeyDown = (e) => {
     if (e.key === 'Escape') {
-      e.preventDefault();
-      setIsDropdownOpen(false);
-      triggerRef?.current?.focus();
+      e.preventDefault()
+      setIsDropdownOpen(false)
+      triggerRef?.current?.focus()
     }
-  };
+  }
 
   const handleToggleUnits = () => {
     setUnits(isImperial
       ? { temperature_unit: "celsius", wind_speed_unit: "kmh", precipitation_unit: "mm" }
       : { temperature_unit: "fahrenheit", wind_speed_unit: "mph", precipitation_unit: "inch" }
-    );
-    setIsDropdownOpen(false);
-    triggerRef?.current?.focus();
-  };
+    )
+    setIsDropdownOpen(false)
+    triggerRef?.current?.focus()
+  }
 
   return (
     <div id="units-dropdown" className="z-10 w-44 absolute top-full right-0 mt-2 animate-dropdown-open origin-top-right" onKeyDown={handleKeyDown}>
-        <div className="p-2 bg-neutral-800 border border-neutral-600 rounded-xl" aria-labelledby="units-dropdown-button">
+        <div className="dropdown-panel" aria-labelledby="units-dropdown-button">
           <button
             ref={switchButtonRef}
             className="text-preset-7 switch-button"
@@ -48,21 +54,17 @@ const Units = ({setIsDropdownOpen, triggerRef}) => {
             {isImperial ? "Switch to Metric" : "Switch to Imperial"}
           </button>
           <ul className="flex flex-col gap-2 mt-2" role="list">
-            <li className="border-b border-neutral-600 pb-2 flex flex-col gap-2">
-                <p className="text-preset-8 text-neutral-300">Temperature</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`} aria-current={!isImperial ? "true" : undefined}>Celsius (&#176;C) {!isImperial && <Checkmark />}</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`} aria-current={isImperial ? "true" : undefined}>Fahrenheit (&#176;F) {isImperial && <Checkmark />}</p>
-            </li>
-            <li className="border-b border-neutral-600 pb-2 flex flex-col gap-2">
-                <p className="text-preset-8 text-neutral-300">Wind Speed</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`} aria-current={!isImperial ? "true" : undefined}>km/h {!isImperial && <Checkmark />}</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`} aria-current={isImperial ? "true" : undefined}>mph {isImperial && <Checkmark />}</p>
-             </li>
-            <li className="border-b border-neutral-600 pb-2 flex flex-col gap-2">
-                <p className="text-preset-8 text-neutral-300">Precipitation</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`} aria-current={!isImperial ? "true" : undefined}>Millimeters (mm) {!isImperial && <Checkmark />}</p>
-                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`} aria-current={isImperial ? "true" : undefined}>Inches (in) {isImperial && <Checkmark />}</p>
-            </li>
+            {unitSections.map(({ label, metric, imperial }) => (
+              <li key={label} className="border-b border-neutral-600 pb-2 flex flex-col gap-2">
+                <p className="text-preset-8 text-neutral-300">{label}</p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${!isImperial ? 'bg-neutral-700' : ''}`} aria-current={!isImperial ? "true" : undefined}>
+                  {metric} {!isImperial && <Checkmark />}
+                </p>
+                <p className={`text-preset-7 text-neutral-0 p-2 rounded-md flex items-center justify-between ${isImperial ? 'bg-neutral-700' : ''}`} aria-current={isImperial ? "true" : undefined}>
+                  {imperial} {isImperial && <Checkmark />}
+                </p>
+              </li>
+            ))}
           </ul>
         </div>
     </div>

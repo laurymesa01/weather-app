@@ -11,7 +11,7 @@ const CityAutocomplete = ({suggestions, onSelect, isLoadingCitiesSuggestions, ac
                <p className="text-preset-7 text-neutral-0">Search in progress...</p>
             </div>
         ): (
-        <div className="p-2 bg-neutral-800 border border-neutral-600 rounded-xl" aria-label="Search suggestions">
+        <div className="dropdown-panel" aria-label="Search suggestions">
           <ul className="flex flex-col gap-2" role="listbox">
             {suggestions.map((s, index) => (
                 <li

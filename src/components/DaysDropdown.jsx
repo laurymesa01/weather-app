@@ -64,7 +64,7 @@ const DaysDropdown = ({selectedDay, setSelectedDay, setIsDropdownOpen, triggerRe
 
   return (
     <div id="days-dropdown" className="z-10 w-44 absolute top-full right-0 mt-2 animate-dropdown-open origin-top" onKeyDown={handleKeyDown}>
-        <div className="p-2 bg-neutral-800 border border-neutral-600 rounded-xl" aria-labelledby="days-dropdown-trigger">
+        <div className="dropdown-panel" aria-labelledby="days-dropdown-trigger">
           <ul ref={menuRef} className="flex flex-col gap-2" role="menu" aria-label="Select day">
             {days.map((day, index) => (
                 <li key={index} role="none" className="rounded-md p-1.5 hover:bg-neutral-700 hover:border hover:border-neutral-600 focus-within:bg-neutral-700 focus-within:border focus-within:border-neutral-600">

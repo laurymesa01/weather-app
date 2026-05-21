@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
+import ChevronIcon from './ChevronIcon'
 
 const Skeleton = () => {
 
@@ -36,7 +37,7 @@ const Skeleton = () => {
                 <p className="text-preset-5 text-neutral-0">Hourly forecast</p>
                 <div className="flex items-center gap-2 bg-neutral-600 p-2 rounded-md">
                     <p className=" text-neutral-0">-</p>
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="13" height="6" fill="none" viewBox="0 0 13 8"><path fill="#fff" d="M6.309 7.484 1.105 2.316c-.175-.14-.175-.421 0-.597l.704-.668a.405.405 0 0 1 .597 0l4.219 4.148 4.184-4.148c.175-.176.457-.176.597 0l.703.668c.176.176.176.457 0 .597L6.906 7.484a.405.405 0 0 1-.597 0Z"/></svg>
+                    <ChevronIcon />
                 </div>
             </div>
             <ul className="flex flex-col gap-4 mt-4">
