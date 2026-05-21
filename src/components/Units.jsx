@@ -23,7 +23,7 @@ const Units = ({setIsDropdownOpen}) => {
   };
 
   return (
-    <div id="dropdown" className="z-10 w-44 absolute top-full right-0 mt-2">
+    <div id="dropdown" className="z-10 w-44 absolute top-full right-0 mt-2 animate-dropdown-open origin-top-right">
         <div className="p-2 bg-neutral-800 border border-neutral-600 rounded-xl" aria-labelledby="dropdownDefaultButton">
           <button className='text-preset-7 switch-button' onClick={handleToggleUnits}>
             {isImperial ? 'Switch to Metric' : 'Switch to Imperial'}

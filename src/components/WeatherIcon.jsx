@@ -31,7 +31,7 @@ const WeatherIcon = ({code, className}) => {
         99: "/public/images/icon-storm.webp"
       };
 
-      const icon = weatherIcons[code] || "/icons/cloudy.svg";
+      const icon = weatherIcons[code] || "/public/images/icon-partly-cloudy.webp";
 
   return (
       <img
