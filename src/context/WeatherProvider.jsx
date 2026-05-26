@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 import { WeatherContext } from './WeatherContext'
 import { fetchWeather } from '../services/fetchWeather'
@@ -15,7 +15,7 @@ export function WeatherProvider({ children }) {
   })
   const [weather, setWeather] = useState(null)
 
-  const { suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions } =
+  const { suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions, suggestionsError } =
     useCitySuggestions(query)
 
   useEffect(() => {
@@ -29,28 +29,27 @@ export function WeatherProvider({ children }) {
     )
   }, [])
 
-  useEffect(() => {
+  const loadWeather = useCallback(async () => {
     if (!city) return
-
-    async function loadWeather() {
-      try {
-        setState('loading')
-        const data = await fetchWeather(city, units)
-        setWeather(data)
-        setState('success')
-      } catch (err) {
-        console.error(err)
-        if (err.message === 'City not found') {
-          setState('notfound')
-          return
-        }
-        setWeather(null)
-        setState('error')
+    try {
+      setState('loading')
+      const data = await fetchWeather(city, units)
+      setWeather(data)
+      setState('success')
+    } catch (err) {
+      console.error(err)
+      if (err.message === 'City not found') {
+        setState('notfound')
+        return
       }
+      setWeather(null)
+      setState('error')
     }
-
-    loadWeather()
   }, [city, units])
+
+  useEffect(() => {
+    loadWeather()
+  }, [loadWeather])
 
   return (
     <WeatherContext.Provider
@@ -58,6 +57,8 @@ export function WeatherProvider({ children }) {
         weather, setCity, setUnits, units, setQuery,
         suggestions, setSuggestions, state,
         isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions,
+        suggestionsError,
+        retry: loadWeather,
       }}
     >
       {children}

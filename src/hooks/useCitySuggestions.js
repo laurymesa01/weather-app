@@ -4,6 +4,7 @@ import { fetchCitysuggestions } from '../services/fetchWeather'
 export function useCitySuggestions(query) {
   const [suggestions, setSuggestions] = useState([])
   const [isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions] = useState(false)
+  const [suggestionsError, setSuggestionsError] = useState(false)
 
   useEffect(() => {
     if (!query || query.trim().length < 2) {
@@ -19,8 +20,11 @@ export function useCitySuggestions(query) {
         setIsLoadingCitiesSuggestions(true)
         const data = await fetchCitysuggestions(query)
         setSuggestions(data)
+        setSuggestionsError(false)
       } catch (err) {
         console.error(err)
+        setSuggestions([])
+        setSuggestionsError(true)
       } finally {
         setIsLoadingCitiesSuggestions(false)
       }
@@ -29,5 +33,5 @@ export function useCitySuggestions(query) {
     return () => clearTimeout(timer)
   }, [query])
 
-  return { suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions }
+  return { suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions, suggestionsError }
 }

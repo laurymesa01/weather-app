@@ -22,7 +22,7 @@ const Home = () => {
         )}
       </div>
       {state === 'success' && <WeatherResults />}
-      {state === 'loading' && <Skeleton />}
+      {(state === 'loading' || state === 'locating') && <Skeleton />}
     </section>
   )
 }
