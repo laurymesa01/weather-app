@@ -18,6 +18,12 @@
     --font-bricolage: "Bricolage Grotesque", sans-serif;
 
     --animate-dropdown-open: dropdown-open 0.15s ease-out;
+    --animate-spin-slow: spin-slow 8s linear infinite;
+    --animate-float: float 3s ease-in-out infinite alternate;
+    --animate-breathe: breathe 4s ease-in-out infinite;
+    --animate-bounce-gentle: bounce-gentle 1.5s ease-in-out infinite;
+    --animate-sway: sway 2.5s ease-in-out infinite alternate;
+    --animate-shake: shake 0.6s ease-in-out infinite;
 
     @keyframes dropdown-open {
         from {
@@ -28,6 +34,39 @@
             opacity: 1;
             transform: scaleY(1) translateY(0);
         }
+    }
+
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+        from { transform: translateY(0); }
+        to { transform: translateY(-8px); }
+    }
+
+    @keyframes breathe {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+
+    @keyframes bounce-gentle {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+
+    @keyframes sway {
+        from { transform: rotate(-6deg); }
+        to { transform: rotate(6deg); }
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: rotate(0deg) translateX(0); }
+        20% { transform: rotate(-4deg) translateX(-2px); }
+        40% { transform: rotate(4deg) translateX(2px); }
+        60% { transform: rotate(-3deg) translateX(-1px); }
+        80% { transform: rotate(3deg) translateX(1px); }
     }
 
 }
