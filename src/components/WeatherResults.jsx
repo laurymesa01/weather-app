@@ -19,11 +19,11 @@ const WeatherResults = () => {
                 <section aria-label="Current weather and daily forecast" className="flex flex-col gap-8 xl:w-2/3">
                     <div className="h-70 p-4 flex flex-col justify-center items-center gap-2 md:flex-row md:justify-between md:items-center bg-[url(/images/bg-today-small.svg)] md:bg-[url(/images/bg-today-large.svg)] bg-cover bg-center rounded-xl">
                         <div>
-                            <p className="text-preset-4 text-neutral-0">{weather.city}, {weather.country}</p>
-                            <p className="text-preset-6 text-neutral-0 opacity-80">{formatDate(weather.current.time)}</p>
+                            <p className="text-preset-4 text-neutral-0 text-center md:text-start">{weather.city}, {weather.country}</p>
+                            <p className="text-preset-6 text-neutral-0 opacity-80 text-center md:text-start">{formatDate(weather.current.time)}</p>
                         </div>
                         <div className="flex flex-row items-center gap-4">
-                            <WeatherIcon code={weather.current.weather_code} className="w-18 h-18"/>
+                            <WeatherIcon code={weather.current.weather_code} className="w-16 h-16 sm:w-18 sm:h-18"/>
                             <p className="text-preset-1 text-neutral-0" aria-label={`${weather.current.temperature_2m} degrees`}>{weather.current.temperature_2m}&#176;</p>
                         </div>
                     </div>

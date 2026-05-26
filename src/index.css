@@ -74,10 +74,11 @@
 @layer base {
     body{
         @apply font-sans;
+        min-width: 320px;
     }
 
     .text-preset-1{
-        @apply text-8xl font-semibold italic tracking-[-2px];
+        @apply text-7xl sm:text-8xl font-semibold italic tracking-[-2px];
     }
 
     .text-preset-2{
