@@ -12,7 +12,7 @@ const DailyForecast = () => {
 
     const {weather} = useContext(WeatherContext);
 
-    const forecast = useMemo(() => getDailyForecast(weather), [weather.daily]);
+    const forecast = useMemo(() => getDailyForecast(weather.daily), [weather.daily]);
 
 
     if (forecast.length === 0) {

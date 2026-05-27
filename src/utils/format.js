@@ -28,17 +28,17 @@ export function getNext7Days() {
   })
 }
 
-export function getDailyForecast(weather) {
-  if (!weather.daily?.time) return []
+export function getDailyForecast(daily) {
+  if (!daily?.time) return []
   const today = toDateString(new Date())
 
-  return weather.daily.time
+  return daily.time
     .map((day, index) => ({
       date: day,
       label: parseDateString(day).toLocaleDateString('en-US', { weekday: 'short' }),
-      maxTemp: weather.daily.temperature_2m_max[index],
-      minTemp: weather.daily.temperature_2m_min[index],
-      weatherCode: weather.daily.weather_code[index],
+      maxTemp: daily.temperature_2m_max[index],
+      minTemp: daily.temperature_2m_min[index],
+      weatherCode: daily.weather_code[index],
     }))
     .filter(day => day.date >= today)
     .slice(0, 7)
