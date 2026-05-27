@@ -22,7 +22,7 @@ const DailyForecast = () => {
   return (
     <ul className='grid grid-cols-3 md:grid-cols-7 gap-4 mt-4'>
         {forecast.map(day => (
-            <li key={day.date} className='bg-neutral-800 rounded-xl p-2 border border-neutral-600 text-center'>
+            <li key={day.date} className='bg-neutral-800 rounded-xl p-2 border border-neutral-600 text-center transition-transform duration-200 hover:scale-105 hover:shadow-lg cursor-default'>
                 <p className='text-preset-6 text-neutral-0'>{day.label}</p>
                 <WeatherIcon code={day.weatherCode} className='w-12 h-12 mt-4 mx-auto'/>
                 <div className='flex justify-between items-center mt-4'>
