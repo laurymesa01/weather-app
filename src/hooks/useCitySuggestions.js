@@ -1,35 +1,37 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import { fetchCitysuggestions } from '../services/fetchWeather'
 
+const initial = { suggestions: [], isLoadingCitiesSuggestions: false, suggestionsError: false }
+
 export function useCitySuggestions(query) {
-  const [suggestions, setSuggestions] = useState([])
-  const [isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions] = useState(false)
-  const [suggestionsError, setSuggestionsError] = useState(false)
+  const [state, dispatch] = useReducer(
+    (prev, patch) => ({ ...prev, ...patch }),
+    initial
+  )
 
   useEffect(() => {
     if (!query || query.trim().length < 2) {
-      setSuggestions([])
-      setIsLoadingCitiesSuggestions(false)
+      dispatch(initial)
       return
     }
 
     const timer = setTimeout(async () => {
       try {
-        setIsLoadingCitiesSuggestions(true)
+        dispatch({ isLoadingCitiesSuggestions: true, suggestionsError: false })
         const data = await fetchCitysuggestions(query)
-        setSuggestions(data)
-        setSuggestionsError(false)
+        dispatch({ suggestions: data, isLoadingCitiesSuggestions: false })
       } catch (err) {
         console.error(err)
-        setSuggestions([])
-        setSuggestionsError(true)
-      } finally {
-        setIsLoadingCitiesSuggestions(false)
+        dispatch({ suggestions: [], isLoadingCitiesSuggestions: false, suggestionsError: true })
       }
     }, 300)
 
     return () => clearTimeout(timer)
   }, [query])
 
-  return { suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions, suggestionsError }
+  return {
+    ...state,
+    setSuggestions: (suggestions) => dispatch({ suggestions }),
+    setIsLoadingCitiesSuggestions: (isLoadingCitiesSuggestions) => dispatch({ isLoadingCitiesSuggestions }),
+  }
 }
