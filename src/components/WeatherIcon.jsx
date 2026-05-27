@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
-
 const weatherDescriptions = {
   0: "Clear sky",
   1: "Mainly clear",
@@ -43,30 +40,30 @@ const weatherAnimations = {
     99: "animate-shake",
 }
 
+const weatherIcons = {
+  0: "/images/icon-sunny.webp",
+  1: "/images/icon-partly-cloudy.webp",
+  2: "/images/icon-partly-cloudy.webp",
+  3: "/images/icon-overcast.webp",
+  45: "/images/icon-fog.webp",
+  48: "/images/icon-fog.webp",
+  51: "/images/icon-drizzle.webp",
+  53: "/images/icon-drizzle.webp",
+  55: "/images/icon-drizzle.webp",
+  61: "/images/icon-rain.webp",
+  63: "/images/icon-rain.webp",
+  65: "/images/icon-rain.webp",
+  71: "/images/icon-snow.webp",
+  73: "/images/icon-snow.webp",
+  75: "/images/icon-snow.webp",
+  95: "/images/icon-storm.webp",
+  96: "/images/icon-storm.webp",
+  99: "/images/icon-storm.webp"
+};
+
 const WeatherIcon = ({code, className}) => {
 
-    const weatherIcons = {
-        0: "/images/icon-sunny.webp",
-        1: "/images/icon-partly-cloudy.webp",
-        2: "/images/icon-partly-cloudy.webp",
-        3: "/images/icon-overcast.webp",
-        45: "/images/icon-fog.webp",
-        48: "/images/icon-fog.webp",
-        51: "/images/icon-drizzle.webp",
-        53: "/images/icon-drizzle.webp",
-        55: "/images/icon-drizzle.webp",
-        61: "/images/icon-rain.webp",
-        63: "/images/icon-rain.webp",
-        65: "/images/icon-rain.webp",
-        71: "/images/icon-snow.webp",
-        73: "/images/icon-snow.webp",
-        75: "/images/icon-snow.webp",
-        95: "/images/icon-storm.webp",
-        96: "/images/icon-storm.webp",
-        99: "/images/icon-storm.webp"
-    };
-
-    const icon = weatherIcons[code] || "/public/images/icon-partly-cloudy.webp";
+    const icon = weatherIcons[code] || "/images/icon-partly-cloudy.webp";
     const alt = weatherDescriptions[code] || "Weather condition";
     const animation = weatherAnimations[code] ?? "";
 

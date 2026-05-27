@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 
 import DailyForecast from './DailyForecast'
 import HourlyForecast from './HourlyForecast'

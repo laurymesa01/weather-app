@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import Search from '../components/Search';
 import WeatherResults from '../components/WeatherResults';
 import Skeleton from '../components/Skeleton';

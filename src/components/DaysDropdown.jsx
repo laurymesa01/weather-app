@@ -1,17 +1,16 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
+
+const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+];
 
 const DaysDropdown = ({selectedDay, setSelectedDay, setIsDropdownOpen, triggerRef}) => {
-
-    const days = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-    ];
 
     const menuRef = useRef(null);
     const initialDay = useRef(selectedDay);

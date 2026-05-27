@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useContext, useRef, useEffect } from 'react'
+import { useContext, useRef, useEffect } from 'react'
 import { WeatherContext } from '../context/WeatherContext'
 
 const Checkmark = () => (

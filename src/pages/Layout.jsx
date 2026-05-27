@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, {useContext} from 'react'
+import  {useContext} from 'react'
 import Header from '../components/Header'
 import Home from './Home'
 import Error from './Error'

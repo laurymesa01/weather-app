@@ -10,6 +10,7 @@ export function formatDate(dateString) {
 export function getHourlyForecast(weather, selectedDay) {
   const now = new Date()
   const today = now.toLocaleDateString('en-US', { weekday: 'long' })
+  const startOfCurrentHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours())
 
   return weather.hourly.time
     .map((time, index) => ({
@@ -22,7 +23,8 @@ export function getHourlyForecast(weather, selectedDay) {
       const hourDate = new Date(hour.fullDate)
       const dayName = hourDate.toLocaleDateString('en-US', { weekday: 'long' })
       if (dayName !== selectedDay) return false
-      if (selectedDay === today) return hourDate.getHours() >= now.getHours()
+      if (selectedDay === today) return hourDate >= startOfCurrentHour
+      
       return true
     })
 }

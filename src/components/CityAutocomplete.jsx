@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
 
 const CityAutocomplete = ({suggestions, onSelect, isLoadingCitiesSuggestions, suggestionsError, activeIndex, setActiveIndex}) => {
 
@@ -19,7 +17,7 @@ const CityAutocomplete = ({suggestions, onSelect, isLoadingCitiesSuggestions, su
           <ul className="flex flex-col gap-2" role="listbox">
             {suggestions.map((s, index) => (
                 <li
-                    key={index}
+                    key={`${s.latitude}-${s.longitude}`}
                     id={`suggestion-${index}`}
                     role="option"
                     aria-selected={index === activeIndex}

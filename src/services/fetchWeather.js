@@ -25,7 +25,7 @@ export async function fetchWeather(cityOrCoords, units) {
     const geoResponse = await fetch(`${API_URL}search?name=${cityOrCoords}&count=1&language=en&format=json`);
     if (!geoResponse.ok) throw new Error('Geocoding API error')
     const geoData = await geoResponse.json();
-    if (!geoData.results) throw new Error("City not found");
+    if (!geoData.results || geoData.results.length === 0) throw new Error("City not found");
     ({ latitude, longitude, name, country } = geoData.results[0]);
   }
 

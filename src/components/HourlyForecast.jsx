@@ -1,8 +1,11 @@
-import React, { useContext, useState, useRef } from 'react'
+import { useContext, useState, useRef } from 'react'
 
 import WeatherIcon from './WeatherIcon'
 import DaysDropdown from './DaysDropdown'
 import ChevronIcon from './ChevronIcon'
+import Skeleton from "./Skeleton";
+
+
 import { WeatherContext } from '../context/WeatherContext'
 import { getHourlyForecast } from '../utils/format'
 
@@ -14,7 +17,7 @@ const HourlyForecast = () => {
   const triggerRef = useRef(null)
   const { weather } = useContext(WeatherContext)
 
-  if (!weather.hourly?.time) return <p>Loading forecast...</p>
+  if (!weather.hourly?.time) return <Skeleton />;
 
   const hourlyForecast = getHourlyForecast(weather, selectedDay)
 
