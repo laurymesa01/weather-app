@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useRef, useState, useContext, useEffect } from 'react'
+import { useRef, useState, useContext, useEffect } from 'react'
 
 import { WeatherContext } from "../context/WeatherContext";
 import CityAutocomplete from './CityAutocomplete';
@@ -9,7 +8,7 @@ const Search = () => {
 
   const [input, setInput] = useState('');
   const [activeIndex, setActiveIndex] = useState(-1);
-  const { setCity, setQuery, suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions, suggestionsError } = useContext(WeatherContext);
+  const { setCity, setQuery, suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions } = useContext(WeatherContext);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -23,11 +22,8 @@ const Search = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [setSuggestions, setIsLoadingCitiesSuggestions]);
 
-  useEffect(() => {
-    setActiveIndex(-1);
-  }, [suggestions]);
-
   const handleKeyUp = (e) => {
+    setActiveIndex(-1);
     setQuery(e.target.value);
   }
 
@@ -84,12 +80,11 @@ const Search = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyUp={handleKeyUp}
                   onKeyDown={handleKeyDown}/>
-        {(isLoadingCitiesSuggestions || suggestions.length > 0 || suggestionsError) && (
+        {(isLoadingCitiesSuggestions || suggestions.length > 0) && (
           <CityAutocomplete
             suggestions={suggestions}
             onSelect={handleSelectSuggestion}
             isLoadingCitiesSuggestions={isLoadingCitiesSuggestions}
-            suggestionsError={suggestionsError}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
