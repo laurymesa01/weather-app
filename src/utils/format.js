@@ -26,7 +26,6 @@ export function getNext7Days() {
 export function getHourlyForecast(weather, selectedDate) {
   const now = new Date()
   const todayDate = toDateString(now)
-  const currentHour = now.getHours()
 
   return weather.hourly.time
     .map((time, index) => ({
@@ -36,10 +35,11 @@ export function getHourlyForecast(weather, selectedDate) {
       fullDate: time,
     }))
     .filter(hour => {
-      const dateStr = hour.fullDate.slice(0, 10)
+      const hourDate = new Date(hour.fullDate)
+      const dateStr = toDateString(hourDate)
       if (dateStr !== selectedDate) return false
       if (selectedDate === todayDate) {
-        return parseInt(hour.fullDate.slice(11, 13)) >= currentHour
+        return hourDate.getHours() >= now.getHours()
       }
       return true
     })
