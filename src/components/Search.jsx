@@ -8,7 +8,7 @@ const Search = () => {
 
   const [input, setInput] = useState('');
   const [activeIndex, setActiveIndex] = useState(-1);
-  const { setCity, setQuery, suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions } = useContext(WeatherContext);
+  const { setCity, setQuery, suggestions, setSuggestions, isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions, suggestionsError } = useContext(WeatherContext);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -80,17 +80,18 @@ const Search = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyUp={handleKeyUp}
                   onKeyDown={handleKeyDown}/>
-        {(isLoadingCitiesSuggestions || suggestions.length > 0) && (
+        {(isLoadingCitiesSuggestions || suggestions.length > 0 || suggestionsError) && (
           <CityAutocomplete
             suggestions={suggestions}
             onSelect={handleSelectSuggestion}
             isLoadingCitiesSuggestions={isLoadingCitiesSuggestions}
+            suggestionsError={suggestionsError}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
         )}
       </div>
-      <button type="submit" className="search-button" onClick={handleSubmit}>Search</button>
+      <button type="submit" className="search-button">Search</button>
     </form>
   )
 }

@@ -22,7 +22,7 @@ export async function fetchWeather(cityOrCoords, units) {
       ({ name, country } = await reverseGeocode(latitude, longitude));
     }
   } else {
-    const geoResponse = await fetch(`${API_URL}search?name=${cityOrCoords}&count=1&language=en&format=json`);
+    const geoResponse = await fetch(`${API_URL}search?name=${encodeURIComponent(cityOrCoords)}&count=1&language=en&format=json`);
     if (!geoResponse.ok) throw new Error('Geocoding API error')
     const geoData = await geoResponse.json();
     if (!geoData.results || geoData.results.length === 0) throw new Error("City not found");
@@ -75,7 +75,7 @@ export async function fetchWeather(cityOrCoords, units) {
 }
 
 export async function fetchCitysuggestions(query) {
-  const response = await fetch(`${API_URL}search?name=${query}&count=5&language=en&format=json`);
+  const response = await fetch(`${API_URL}search?name=${encodeURIComponent(query)}&count=5&language=en&format=json`);
   if (!response.ok) throw new Error('City suggestions API error')
   const data = await response.json();
 

@@ -8,10 +8,8 @@ export function useCitySuggestions(query) {
 
   useEffect(() => {
     if (!query || query.trim().length < 2) {
-      setTimeout(() => {
-        setSuggestions([])
-        setIsLoadingCitiesSuggestions(false)
-      }, 0)
+      setSuggestions([])
+      setIsLoadingCitiesSuggestions(false)
       return
     }
 

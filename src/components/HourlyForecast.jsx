@@ -47,8 +47,8 @@ const HourlyForecast = () => {
         )}
       </div>
       <ul className="flex flex-col gap-4 mt-4">
-        {hourlyForecast.map((hour, index) => (
-          <li key={index} className="flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md">
+        {hourlyForecast.map((hour) => (
+          <li key={hour.fullDate} className="flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md">
             <div className="flex flex-row items-center gap-4">
               <WeatherIcon code={hour.weatherCode} className="w-12 h-12" />
               <p className="text-preset-5-medium text-neutral-0">{hour.time}</p>
