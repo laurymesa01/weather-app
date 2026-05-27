@@ -50,7 +50,7 @@ const HourlyForecast = () => {
       {hourlyForecast.length === 0 ? (
         <p className="text-preset-6 text-neutral-200 text-center mt-8">No hourly data available for this day.</p>
       ) : (
-        <ul className="flex flex-col gap-4 mt-4">
+        <ul className="flex flex-col gap-4 mt-4 overflow-y-auto max-h-138 scrollbar-hidden">
           {hourlyForecast.map((hour) => (
             <li key={hour.fullDate} className="flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md">
               <div className="flex flex-row items-center gap-4">

@@ -17,7 +17,7 @@ const Home = () => {
           <p className="w-full text-preset-4 text-neutral-0 text-center mt-8">Search for a city to get the weather forecast!</p>
         )}
         {state === 'locationdenied' && (
-          <p className="w-full text-preset-6 text-neutral-200 text-center mt-2">Location access was denied. You can search manually above.</p>
+          <p className="w-full text-preset-4 text-neutral-0 text-center mt-4">Location access was denied. You can search manually above.</p>
         )}
         {state === 'notfound' && (
           <p className="w-full text-preset-4 text-neutral-0 text-center mt-4">No search result found!</p>
