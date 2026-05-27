@@ -1,25 +1,15 @@
 import { useRef, useEffect } from 'react'
 
-const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-];
-
-const DaysDropdown = ({selectedDay, setSelectedDay, setIsDropdownOpen, triggerRef}) => {
+const DaysDropdown = ({days, selectedDate, setSelectedDate, setIsDropdownOpen, triggerRef}) => {
 
     const menuRef = useRef(null);
-    const initialDay = useRef(selectedDay);
+    const initialDate = useRef(selectedDate);
 
     useEffect(() => {
         const items = Array.from(menuRef.current?.querySelectorAll('[role="menuitem"]') || []);
-        const selected = items.find(item => item.textContent.trim() === initialDay.current);
-        (selected || items[0])?.focus();
-    }, []);
+        const selectedIndex = days.findIndex(d => d.date === initialDate.current);
+        (items[selectedIndex] || items[0])?.focus();
+    }, [days]);
 
     const handleKeyDown = (e) => {
         const items = Array.from(menuRef.current?.querySelectorAll('[role="menuitem"]') || []);
@@ -55,8 +45,8 @@ const DaysDropdown = ({selectedDay, setSelectedDay, setIsDropdownOpen, triggerRe
         }
     };
 
-    const handleSelectedDay = (day) => {
-        setSelectedDay(day);
+    const handleSelectedDate = (date) => {
+        setSelectedDate(date);
         setIsDropdownOpen(false);
         triggerRef?.current?.focus();
     };
@@ -65,14 +55,14 @@ const DaysDropdown = ({selectedDay, setSelectedDay, setIsDropdownOpen, triggerRe
     <div id="days-dropdown" className="z-10 w-44 absolute top-full right-0 mt-2 animate-dropdown-open origin-top" onKeyDown={handleKeyDown}>
         <div className="dropdown-panel" aria-labelledby="days-dropdown-trigger">
           <ul ref={menuRef} className="flex flex-col gap-2" role="menu" aria-label="Select day">
-            {days.map((day, index) => (
-                <li key={index} role="none" className="rounded-md p-1.5 hover:bg-neutral-700 hover:border hover:border-neutral-600 focus-within:bg-neutral-700 focus-within:border focus-within:border-neutral-600">
+            {days.map((day) => (
+                <li key={day.date} role="none" className="rounded-md p-1.5 hover:bg-neutral-700 hover:border hover:border-neutral-600 focus-within:bg-neutral-700 focus-within:border focus-within:border-neutral-600">
                     <button
                         role="menuitem"
-                        aria-current={day === selectedDay ? "true" : undefined}
+                        aria-current={day.date === selectedDate ? "true" : undefined}
                         className="text-preset-7 text-neutral-0 w-full text-start cursor-pointer focus:outline-none"
-                        onClick={() => handleSelectedDay(day)}>
-                            {day}
+                        onClick={() => handleSelectedDate(day.date)}>
+                            {day.label}
                     </button>
                 </li>
             ))}

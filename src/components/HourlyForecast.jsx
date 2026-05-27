@@ -7,19 +7,19 @@ import Skeleton from "./Skeleton";
 
 
 import { WeatherContext } from '../context/WeatherContext'
-import { getHourlyForecast } from '../utils/format'
+import { getHourlyForecast, getNext7Days } from '../utils/format'
 
 const HourlyForecast = () => {
+  const next7Days = getNext7Days()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [selectedDay, setSelectedDay] = useState(
-    new Date().toLocaleDateString('en-US', { weekday: 'long' })
-  )
+  const [selectedDate, setSelectedDate] = useState(next7Days[0].date)
   const triggerRef = useRef(null)
   const { weather } = useContext(WeatherContext)
 
   if (!weather.hourly?.time) return <Skeleton />;
 
-  const hourlyForecast = getHourlyForecast(weather, selectedDay)
+  const hourlyForecast = getHourlyForecast(weather, selectedDate)
+  const selectedLabel = next7Days.find(d => d.date === selectedDate)?.label ?? selectedDate
 
   return (
     <section className="p-4 bg-neutral-800 rounded-xl" aria-label="Hourly forecast">
@@ -34,13 +34,14 @@ const HourlyForecast = () => {
           aria-controls="days-dropdown"
           aria-haspopup="menu"
         >
-          <p className="text-[16px] font-medium text-neutral-0">{selectedDay}</p>
+          <p className="text-[16px] font-medium text-neutral-0">{selectedLabel}</p>
           <ChevronIcon isOpen={isDropdownOpen} />
         </button>
         {isDropdownOpen && (
           <DaysDropdown
-            selectedDay={selectedDay}
-            setSelectedDay={setSelectedDay}
+            days={next7Days}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
             setIsDropdownOpen={setIsDropdownOpen}
             triggerRef={triggerRef}
           />

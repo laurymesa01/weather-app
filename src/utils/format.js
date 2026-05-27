@@ -7,10 +7,26 @@ export function formatDate(dateString) {
   })
 }
 
-export function getHourlyForecast(weather, selectedDay) {
+function toDateString(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+export function getNext7Days() {
+  const today = new Date()
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(today)
+    d.setDate(today.getDate() + i)
+    return {
+      date: toDateString(d),
+      label: i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'long' }),
+    }
+  })
+}
+
+export function getHourlyForecast(weather, selectedDate) {
   const now = new Date()
-  const today = now.toLocaleDateString('en-US', { weekday: 'long' })
-  const startOfCurrentHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours())
+  const todayDate = toDateString(now)
+  const currentHour = now.getHours()
 
   return weather.hourly.time
     .map((time, index) => ({
@@ -20,11 +36,11 @@ export function getHourlyForecast(weather, selectedDay) {
       fullDate: time,
     }))
     .filter(hour => {
-      const hourDate = new Date(hour.fullDate)
-      const dayName = hourDate.toLocaleDateString('en-US', { weekday: 'long' })
-      if (dayName !== selectedDay) return false
-      if (selectedDay === today) return hourDate >= startOfCurrentHour
-      
+      const dateStr = hour.fullDate.slice(0, 10)
+      if (dateStr !== selectedDate) return false
+      if (selectedDate === todayDate) {
+        return parseInt(hour.fullDate.slice(11, 13)) >= currentHour
+      }
       return true
     })
 }
