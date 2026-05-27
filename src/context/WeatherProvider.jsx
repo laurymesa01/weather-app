@@ -25,7 +25,7 @@ export function WeatherProvider({ children }) {
         setState('locating')
         setCity({ latitude: coords.latitude, longitude: coords.longitude })
       },
-      () => setState('idle')
+      (err) => setState(err.code === 1 ? 'locationdenied' : 'idle')
     )
   }, [])
 

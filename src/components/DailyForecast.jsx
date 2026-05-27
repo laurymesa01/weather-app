@@ -1,8 +1,6 @@
 import { useContext, useMemo } from 'react'
 
 import WeatherIcon from './WeatherIcon';
-import Skeleton from "./Skeleton";
-
 import { WeatherContext } from "../context/WeatherContext";
 import { getDailyForecast } from '../utils/format';
 
@@ -15,9 +13,7 @@ const DailyForecast = () => {
     const forecast = useMemo(() => getDailyForecast(weather.daily), [weather.daily]);
 
 
-    if (forecast.length === 0) {
-        return <Skeleton/>;
-    }
+    if (forecast.length === 0) return null
 
   return (
     <ul className='grid grid-cols-3 md:grid-cols-7 gap-4 mt-4'>

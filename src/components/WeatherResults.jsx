@@ -33,7 +33,7 @@ const WeatherResults = () => {
                             { label: "Wind", value: `${weather.current.wind_speed_10m} ${weather.currentUnits.wind_speed_10m}` },
                             { label: "Precipitation", value: `${weather.current.precipitation} ${weather.currentUnits.precipitation}` },
                         ].map(({ label, value }) => (
-                            <div key={label} className="bg-neutral-800 rounded-xl p-4 border border-neutral-600 transition-transform duration-200 hover:scale-105 hover:shadow-lg cursor-defaul">
+                            <div key={label} className="bg-neutral-800 rounded-xl p-4 border border-neutral-600 transition-transform duration-200 hover:scale-105 hover:shadow-lg cursor-default">
                                 <dt className="text-preset-6 text-neutral-200">{label}</dt>
                                 <dd className="text-preset-3 text-neutral-0 mt-3">{value}</dd>
                             </div>
