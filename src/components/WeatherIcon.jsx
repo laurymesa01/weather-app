@@ -1,3 +1,9 @@
+const weatherDescriptionsNight = {
+  0: "Clear night",
+  1: "Mainly clear night",
+  2: "Partly cloudy",
+}
+
 const weatherDescriptions = {
   0: "Clear sky",
   1: "Mainly clear",
@@ -61,10 +67,15 @@ const weatherIcons = {
   99: "/images/icon-storm.webp"
 };
 
-const WeatherIcon = ({code, className}) => {
+const weatherIconsNight = {
+  0: "/images/icon-moon.svg",
+  1: "/images/icon-moon.svg",
+};
 
-    const icon = weatherIcons[code] || "/images/icon-partly-cloudy.webp";
-    const alt = weatherDescriptions[code] || "Weather condition";
+const WeatherIcon = ({code, isDay = 1, className}) => {
+    const isNight = isDay === 0;
+    const icon = (isNight && weatherIconsNight[code]) || weatherIcons[code] || "/images/icon-partly-cloudy.webp";
+    const alt = (isNight && weatherDescriptionsNight[code]) || weatherDescriptions[code] || "Weather condition";
     const animation = weatherAnimations[code] ?? "";
 
   return (

@@ -46,7 +46,8 @@ export async function fetchWeather(cityOrCoords, units) {
 
   const hourly = [
     "weather_code",
-    "temperature_2m"
+    "temperature_2m",
+    "is_day"
   ];
 
   const params = new URLSearchParams({

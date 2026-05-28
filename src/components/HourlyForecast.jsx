@@ -54,7 +54,7 @@ const HourlyForecast = () => {
           {hourlyForecast.map((hour) => (
             <li key={hour.fullDate} className="flex flex-row justify-between items-center p-3 bg-neutral-700 border border-neutral-600 rounded-md">
               <div className="flex flex-row items-center gap-4">
-                <WeatherIcon code={hour.weatherCode} className="w-12 h-12" />
+                <WeatherIcon code={hour.weatherCode} isDay={hour.isDay} className="w-12 h-12" />
                 <p className="text-preset-5-medium text-neutral-0">{hour.time}</p>
               </div>
               <p className="text-preset-7 text-neutral-0">{hour.temperature} °</p>

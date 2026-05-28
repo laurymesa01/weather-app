@@ -53,6 +53,7 @@ export function getHourlyForecast(weather, selectedDate) {
       time: new Date(time).toLocaleTimeString('en-US', { hour: 'numeric' }),
       temperature: weather.hourly.temperature_2m[index],
       weatherCode: weather.hourly.weather_code[index],
+      isDay: weather.hourly.is_day?.[index] ?? 1,
       fullDate: time,
     }))
     .filter(hour => {
