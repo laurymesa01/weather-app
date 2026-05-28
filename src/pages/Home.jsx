@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import Search from '../components/Search';
 import WeatherResults from '../components/WeatherResults';
 import Skeleton from '../components/Skeleton';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { WeatherContext } from '../context/WeatherContext';
 
 const Home = () => {
@@ -23,7 +24,11 @@ const Home = () => {
           <p className="w-full text-preset-4 text-neutral-0 text-center mt-4">No search result found!</p>
         )}
       </div>
-      {state === 'success' && <WeatherResults />}
+      {state === 'success' && (
+        <ErrorBoundary>
+          <WeatherResults />
+        </ErrorBoundary>
+      )}
       {(state === 'loading' || state === 'locating') && <Skeleton />}
     </section>
   )
