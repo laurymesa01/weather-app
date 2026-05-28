@@ -1,9 +1,9 @@
 const API_URL = "https://geocoding-api.open-meteo.com/v1/";
 
-async function reverseGeocode(latitude, longitude) {
+async function reverseGeocode(latitude, longitude, signal) {
   const response = await fetch(
     `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-    { headers: { "Accept-Language": "en" } }
+    { headers: { "Accept-Language": "en" }, signal }
   );
   if (!response.ok) throw new Error('Reverse geocode failed')
   const data = await response.json();
@@ -13,16 +13,16 @@ async function reverseGeocode(latitude, longitude) {
   };
 }
 
-export async function fetchWeather(cityOrCoords, units) {
+export async function fetchWeather(cityOrCoords, units, signal) {
   let latitude, longitude, name, country;
 
   if (typeof cityOrCoords === 'object' && cityOrCoords.latitude != null) {
     ({ latitude, longitude, name, country } = cityOrCoords);
     if (!name) {
-      ({ name, country } = await reverseGeocode(latitude, longitude));
+      ({ name, country } = await reverseGeocode(latitude, longitude, signal));
     }
   } else {
-    const geoResponse = await fetch(`${API_URL}search?name=${encodeURIComponent(cityOrCoords)}&count=1&language=en&format=json`);
+    const geoResponse = await fetch(`${API_URL}search?name=${encodeURIComponent(cityOrCoords)}&count=1&language=en&format=json`, { signal });
     if (!geoResponse.ok) throw new Error('Geocoding API error')
     const geoData = await geoResponse.json();
     if (!geoData.results || geoData.results.length === 0) throw new Error("City not found");
@@ -61,7 +61,7 @@ export async function fetchWeather(cityOrCoords, units) {
   });
 
 
-  const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+  const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`, { signal });
   if (!weatherResponse.ok) throw new Error('Weather API error')
   const weatherData = await weatherResponse.json();
 

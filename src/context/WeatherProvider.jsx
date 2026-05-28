@@ -44,25 +44,32 @@ export function WeatherProvider({ children }) {
     )
   }, [])
 
-  const loadWeather = useCallback(async () => {
-    if (!city) return
-    try {
-      dispatch({ type: 'loading' })
-      const data = await fetchWeather(city, units)
-      dispatch({ type: 'success', weather: data })
-    } catch (err) {
-      console.error(err)
-      if (err.message === 'City not found') {
-        dispatch({ type: 'notfound' })
-        return
-      }
-      dispatch({ type: 'error' })
-    }
-  }, [city, units])
+  const [retryCount, setRetryCount] = useState(0)
+  const retry = useCallback(() => setRetryCount(c => c + 1), [])
 
   useEffect(() => {
-    loadWeather()
-  }, [loadWeather])
+    if (!city) return
+    const controller = new AbortController()
+
+    const run = async () => {
+      try {
+        dispatch({ type: 'loading' })
+        const data = await fetchWeather(city, units, controller.signal)
+        dispatch({ type: 'success', weather: data })
+      } catch (err) {
+        if (err.name === 'AbortError') return
+        console.error(err)
+        if (err.message === 'City not found') {
+          dispatch({ type: 'notfound' })
+          return
+        }
+        dispatch({ type: 'error' })
+      }
+    }
+
+    run()
+    return () => controller.abort()
+  }, [city, units, retryCount])
 
   return (
     <WeatherContext.Provider
@@ -71,7 +78,7 @@ export function WeatherProvider({ children }) {
         suggestions, setSuggestions, state: appState,
         isLoadingCitiesSuggestions, setIsLoadingCitiesSuggestions,
         suggestionsError,
-        retry: loadWeather,
+        retry,
       }}
     >
       {children}
