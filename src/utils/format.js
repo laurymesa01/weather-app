@@ -7,46 +7,51 @@ export function formatDate(dateString) {
   })
 }
 
-function toDateString(d) {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
-
 function parseDateString(dateStr) {
   const [year, month, day] = dateStr.split('-').map(Number)
   return new Date(year, month - 1, day)
 }
 
-export function getNext7Days() {
-  const today = new Date()
-  return Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(today)
-    d.setDate(today.getDate() + i)
-    return {
-      date: toDateString(d),
-      label: i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'long' }),
-    }
-  })
+// Returns the city's current local date (YYYY-MM-DD) extracted from the
+// API's current.time string, which is already in the city's local timezone.
+function cityToday(weather) {
+  return weather.current?.time?.slice(0, 10) ?? ''
 }
 
-export function getDailyForecast(daily) {
-  if (!daily?.time) return []
-  const today = toDateString(new Date())
+export function getDaysFromWeather(weather) {
+  if (!weather.daily?.time) return []
+  const today = cityToday(weather)
+  return weather.daily.time.map((date) => ({
+    date,
+    label: date === today
+      ? 'Today'
+      : parseDateString(date).toLocaleDateString('en-US', { weekday: 'long' }),
+  }))
+}
 
-  return daily.time
+export function getDailyForecast(weather) {
+  if (!weather.daily?.time) return []
+  const today = cityToday(weather)
+
+  return weather.daily.time
     .map((day, index) => ({
       date: day,
       label: parseDateString(day).toLocaleDateString('en-US', { weekday: 'short' }),
-      maxTemp: daily.temperature_2m_max[index],
-      minTemp: daily.temperature_2m_min[index],
-      weatherCode: daily.weather_code[index],
+      maxTemp: weather.daily.temperature_2m_max[index],
+      minTemp: weather.daily.temperature_2m_min[index],
+      weatherCode: weather.daily.weather_code[index],
     }))
     .filter(day => day.date >= today)
     .slice(0, 7)
 }
 
 export function getHourlyForecast(weather, selectedDate) {
-  const now = new Date()
-  const todayDate = toDateString(now)
+  // Use the city's current time string directly to avoid browser-timezone issues.
+  // Open-Meteo returns all timestamps as naive local strings (no offset),
+  // so slicing the string is safer than constructing a Date object.
+  const currentTime = weather.current?.time ?? ''
+  const today = currentTime.slice(0, 10)
+  const currentHour = parseInt(currentTime.slice(11, 13), 10) || 0
 
   return weather.hourly.time
     .map((time, index) => ({
@@ -57,11 +62,10 @@ export function getHourlyForecast(weather, selectedDate) {
       fullDate: time,
     }))
     .filter(hour => {
-      const hourDate = new Date(hour.fullDate)
-      const dateStr = toDateString(hourDate)
+      const dateStr = hour.fullDate.slice(0, 10)
       if (dateStr !== selectedDate) return false
-      if (selectedDate === todayDate) {
-        return hourDate.getHours() >= now.getHours()
+      if (selectedDate === today) {
+        return parseInt(hour.fullDate.slice(11, 13), 10) >= currentHour
       }
       return true
     })
