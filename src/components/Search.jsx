@@ -22,11 +22,6 @@ const Search = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [setSuggestions, setIsLoadingCitiesSuggestions]);
 
-  const handleKeyUp = (e) => {
-    setActiveIndex(-1);
-    setQuery(e.target.value);
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -52,7 +47,7 @@ const Search = () => {
     } else if (e.key === 'Enter' && activeIndex >= 0) {
       e.preventDefault();
       handleSelectSuggestion(suggestions[activeIndex]);
-    } else if (e.key === 'Escape') {
+    } else if (e.key === 'Escape' || e.key === 'Tab') {
       setSuggestions([]);
       setIsLoadingCitiesSuggestions(false);
       setActiveIndex(-1);
@@ -77,8 +72,11 @@ const Search = () => {
                   placeholder="Search for a place..."
                   className="text-preset-5-medium outline-none focus:outline-none w-full "
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyUp={handleKeyUp}
+                  onChange={(e) => {
+                    setInput(e.target.value);
+                    setQuery(e.target.value);
+                    setActiveIndex(-1);
+                  }}
                   onKeyDown={handleKeyDown}/>
         {(isLoadingCitiesSuggestions || suggestions.length > 0 || suggestionsError) && (
           <CityAutocomplete

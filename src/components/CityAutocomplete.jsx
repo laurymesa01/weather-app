@@ -1,5 +1,13 @@
+import { useRef, useEffect } from 'react'
 
 const CityAutocomplete = ({suggestions, onSelect, isLoadingCitiesSuggestions, suggestionsError, activeIndex, setActiveIndex}) => {
+  const itemRefs = useRef([])
+
+  useEffect(() => {
+    if (activeIndex >= 0 && itemRefs.current[activeIndex]) {
+      itemRefs.current[activeIndex].scrollIntoView({ block: 'nearest' })
+    }
+  }, [activeIndex])
 
   return (
     <div id="search-suggestions" className="z-10 w-full absolute top-full left-0 mt-2 animate-dropdown-open origin-top">
@@ -21,6 +29,7 @@ const CityAutocomplete = ({suggestions, onSelect, isLoadingCitiesSuggestions, su
                     id={`suggestion-${index}`}
                     role="option"
                     aria-selected={index === activeIndex}
+                    ref={el => itemRefs.current[index] = el}
                     onMouseEnter={() => setActiveIndex(index)}
                     onMouseLeave={() => setActiveIndex(-1)}
                 >
