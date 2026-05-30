@@ -14,7 +14,7 @@ const Home = () => {
       <h1 className="text-preset-2 text-neutral-0 text-center">How&apos;s the sky looking today?</h1>
       <Search />
       <div aria-live="polite" aria-atomic="true">
-        {(state === 'idle' || state === 'locationdenied') && (
+        {(state === 'idle' ) && (
           <p className="w-full text-preset-4 text-neutral-0 text-center mt-8">Search for a city to get the weather forecast!</p>
         )}
         {state === 'locationdenied' && (
