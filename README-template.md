@@ -8,18 +8,16 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
   - [The challenge](#the-challenge)
   - [Screenshot](#screenshot)
   - [Links](#links)
-- [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
   - [AI Collaboration](#ai-collaboration)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
+
+Weather application developed with React and Vite built as a Frontend Mentor challenge. It consumes the Open-Meteo API (free, no API key) to display real-time weather data.
 
 ### The challenge
 
@@ -38,15 +36,15 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![](./laptop-metric.png)
+![](./laptop-imperial.png)
+![](./laptop-search.png)
+![](./laptop.dropdowns.png)
+![](./skeleton.png)
+![](./mobile-metric.png)
+![](./mobile-imperial.png)
+![](./tablet-metric.png)
+![](./tablet-imperial.png)
 
 ### Links
 
@@ -57,74 +55,50 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### Built with
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- [React](https://react.dev/) - JS library
+- [Vite](https://vite.dev/) 
+- [Tailwind CSS](https://tailwindcss.com/) 
+- [Open-Meteo API ]( https://open-meteo.com/) 
+- [Open-Meteo Geocoding API ]( https://open-meteo.com/en/docs/geocoding-api/) 
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+1. useReducer for Complex State: How to replace multiple `useState` hooks with `useReducer` to manage application states (idle, loading, success, error, locating) in a more predictable manner and without cascading renders.
 
-To see how you can add code snippets, see below:
+2. Canceling Requests with AbortController: How to cancel in-flight fetch requests when the user changes the city or units—before the previous response arrives—thereby avoiding race conditions.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
+3. Debouncing City Search: How to implement manual debouncing using `setTimeout`/`clearTimeout` to avoid making an API call on every user keystroke.
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+4. Error Boundary as a First Line of Defense: How to use an ErrorBoundary to catch rendering errors in child components without crashing the entire app, displaying a user-friendly error state instead.
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+1. More Granular Custom Hooks:  the project already features `useCitySuggestions`, but the reducer logic and API calls remain within the Provider. Extracting a `useWeather` hook would help better separate responsibilities.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+2. TypeScript — the project is currently in JSX. Migrating to TSX—with explicit types for API responses and reducer state—would be a natural next step.
 
-### Useful resources
+3. Testing — there are currently no tests in the project. Practice writing unit tests using Vitest/Testing Library for the hooks and presentational components.
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+4. Performance — explore `React.memo`, `useMemo`, and `useCallback` to prevent unnecessary re-renders. 
 
 ### AI Collaboration
 
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
+Tools Used: Claude (Anthropic) via Claude Code
 
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
+How It Was Used:
 
-**Note: Delete this note and the content above if you didn't use AI, or replace with your own experience.**
+The AI ​​acted as an experienced colleague, not merely as a code generator. Instead of asking for direct solutions, I used it to:
+
+Discuss approaches and trade-offs prior to implementation—for example, choosing between multiple `useState` hooks versus `useReducer` for app state, or how to structure error handling.
+Guided debugging—when something wasn't working (such as cascading re-renders or forecast dates being calculated based on the browser's timezone rather than the city's), the AI ​​would pinpoint the problem area and ask me questions to help me identify the root cause.
+Code review for every feature—checking whether a pattern was maintainable, if there were unhandled edge cases, or if accessibility was implemented correctly.
+Architecture—deciding when to extract a custom hook (`useCitySuggestions`), when to use Context, and how to organize services.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Website - [Laura Elena Mesa](https://portfolio-app-three-red.vercel.app/)
+- Frontend Mentor - [@laurymesa01](https://www.frontendmentor.io/profile/laurymesa01)
+- LinkedIn - [@lauraelenamesa](https://www.linkedin.com/in/lauraelenamesa/)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
